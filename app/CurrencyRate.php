@@ -1,13 +1,18 @@
 <?php
 namespace App;
+
 class CurrencyRate
 {
     private array $rates;
 
-    public function __construct(CurrencyAPI $api)
+    public function __construct(array $rates = [])
     {
-        $data = $api->fetchDataFromAPI();
-        $this->rates = $data['conversion_rates'];
+        $this->rates = $rates;
+    }
+
+    public function setRates(array $rates)
+    {
+        $this->rates = $rates;
     }
 
     public function getRates(): array

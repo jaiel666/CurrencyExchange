@@ -1,31 +1,38 @@
 <?php
 
 namespace App;
+
+namespace App;
+
 class CurrencyConverter
 {
-    public function convert(float $amount, string $fromCurrency, string $toCurrency, CurrencyRate $rates): string
+    public function convert($amount, $fromCurrency, $toCurrency, CurrencyRate $rates)
     {
         $conversionRates = $rates->getRates();
         $convertedAmount = $amount * ($conversionRates[$toCurrency] / $conversionRates[$fromCurrency]);
         return number_format($convertedAmount, 2);
     }
 
-    public function run(): void
+    public function run()
     {
-        echo "Enter the amount and source currency (Example: 100 USD): ";
+        $api = new CurrencyAPI();
+        $rates = new CurrencyRate();
+
+        echo "Enter the amount and source currency (e.g., '100 USD'): ";
         $userInput = readline();
         list($amount, $fromCurrency) = explode(' ', $userInput);
 
         echo "Enter the target currency: ";
         $toCurrency = readline();
 
-        $api = new CurrencyAPI();
-        $rates = new CurrencyRate($api);
+        $data = $api->fetchDataFromAPI();
+        $rates->setRates($data['conversion_rates']);
 
         $result = $this->convert((float) $amount, $fromCurrency, $toCurrency, $rates);
 
         echo "Conversion result: $result $toCurrency\n";
     }
 }
+
 
 
