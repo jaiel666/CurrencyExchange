@@ -4,23 +4,23 @@ namespace App;
 
 class CurrencyConverter
 {
-    public function convert($amount, $fromCurrency, $toCurrency, CurrencyRate $rates)
+    public function convert(float $amount, string $fromCurrency, string $toCurrency, CurrencyRate $rates): string
     {
         $conversionRates = $rates->getRates();
         $convertedAmount = $amount * ($conversionRates[$toCurrency] / $conversionRates[$fromCurrency]);
         return number_format($convertedAmount, 2);
     }
 
-    public function run()
+    public function run(): void
     {
         $api = new CurrencyAPI();
         $rates = new CurrencyRate();
 
         echo "Enter the amount and source currency (Example: 100 USD): ";
-        $userInput = readline();
-        list($amount, $fromCurrency) = explode(' ', $userInput);
+        $userAmount = readline();
+        list($amount, $fromCurrency) = explode(' ', $userAmount);
 
-        echo "Enter the target currency: ";
+        echo "Enter the currency to convert to: ";
         $toCurrency = readline();
 
         $data = $api->fetchDataFromAPI();
@@ -31,6 +31,7 @@ class CurrencyConverter
         echo "Conversion result: $result $toCurrency\n";
     }
 }
+
 
 
 
