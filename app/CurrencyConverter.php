@@ -2,8 +2,6 @@
 
 namespace App;
 
-namespace App;
-
 class CurrencyConverter
 {
     public function convert($amount, $fromCurrency, $toCurrency, CurrencyRate $rates)
