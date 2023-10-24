@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\IsoCodes;
+
 class CurrencyConverter
 {
     public function convert(float $amount, string $fromCurrency, string $toCurrency, CurrencyRate $rates): string
@@ -15,6 +17,8 @@ class CurrencyConverter
     {
         $api = new CurrencyAPI();
         $rates = new CurrencyRate();
+        $isoCodes = new IsoCodes();
+
 
         echo "Enter the amount and source currency (Example: 100 USD): ";
         $userAmount = readline();
@@ -23,11 +27,13 @@ class CurrencyConverter
         echo "Enter the currency to convert to: ";
         $toCurrency = readline();
 
+        $toCurrencyName = $isoCodes->get()[$toCurrency];
+
         $rates->fetchRatesFromAPI($api);
 
         $result = $this->convert($amount, $fromCurrency, $toCurrency, $rates);
 
-        echo "Conversion result: $result $toCurrency\n";
+        echo "Conversion result: $result $toCurrencyName\n";
     }
 }
 
