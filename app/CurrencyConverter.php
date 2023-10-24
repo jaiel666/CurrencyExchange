@@ -16,7 +16,7 @@ class CurrencyConverter
         $api = new CurrencyAPI();
         $rates = new CurrencyRate();
 
-        echo "Enter the amount and source currency (e.g., '100 USD'): ";
+        echo "Enter the amount and source currency (Example: 100 USD): ";
         $userInput = readline();
         list($amount, $fromCurrency) = explode(' ', $userInput);
 
@@ -26,7 +26,7 @@ class CurrencyConverter
         $data = $api->fetchDataFromAPI();
         $rates->setRates($data['conversion_rates']);
 
-        $result = $this->convert((float) $amount, $fromCurrency, $toCurrency, $rates);
+        $result = $this->convert($amount, $fromCurrency, $toCurrency, $rates);
 
         echo "Conversion result: $result $toCurrency\n";
     }
