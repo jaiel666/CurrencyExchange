@@ -20,4 +20,10 @@ class CurrencyRate
     {
         return $this->rates;
     }
+    public function fetchRatesFromAPI(CurrencyAPI $api)
+    {
+        $data = $api->fetchDataFromAPI();
+        $this->setRates($data['conversion_rates']);
+    }
+
 }

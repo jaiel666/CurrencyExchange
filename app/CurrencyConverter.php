@@ -23,8 +23,7 @@ class CurrencyConverter
         echo "Enter the currency to convert to: ";
         $toCurrency = readline();
 
-        $data = $api->fetchDataFromAPI();
-        $rates->setRates($data['conversion_rates']);
+        $rates->fetchRatesFromAPI($api);
 
         $result = $this->convert($amount, $fromCurrency, $toCurrency, $rates);
 
